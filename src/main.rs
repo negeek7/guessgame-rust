@@ -1,5 +1,6 @@
 use std::io;
 use rand::Rng;
+use colored::*;
 
 fn main(){
 
@@ -8,23 +9,22 @@ fn main(){
     println!("Welcome to guessing game!");
     println!("Input your guess...");
     
-    
-    
     loop {
         let mut guess = String::new();
         io::stdin()
         .read_line(&mut guess)
         .expect("Something went wrong...");
     
-        let guess_number: u32 = guess.trim().parse().expect("Not a valid number");
+        // convert string to int
+        let guess: u32 = guess.trim().parse().expect("Not a valid number");
 
-        if guess_number == random_number {
-            println!("Your guess is correct!!");
+        if guess == random_number {
+            println!("{}", "Your guess is correct!!".green());
             break;
-        } else if  guess_number > random_number {
-            println!("Your guess is wrong and too high, guess again!!");
+        } else if  guess > random_number {
+            println!("{}", "Your guess is wrong and too high, guess again!!".red());
         } else {
-            println!("Your guess is wrong and too low, guess again!!");
+            println!("{}", "Your guess is wrong and too low, guess again!!".red());
         }
     
         println!("Your guess: {}", guess);
