@@ -8,25 +8,26 @@ fn main(){
     println!("Welcome to guessing game!");
     println!("Input your guess...");
     
-    let mut guess = String::new();
     
-    let guess_number: u32 = guess.trim().parse().expect("Not a valid number");
     
     loop {
-        
+        let mut guess = String::new();
         io::stdin()
         .read_line(&mut guess)
         .expect("Something went wrong...");
     
-        if random_number == guess_number {
+        let guess_number: u32 = guess.trim().parse().expect("Not a valid number");
+
+        if guess_number == random_number {
             println!("Your guess is correct!!");
             break;
+        } else if  guess_number > random_number {
+            println!("Your guess is wrong and too high, guess again!!");
         } else {
-            println!("Your guess is wrong, guess again!!");
+            println!("Your guess is wrong and too low, guess again!!");
         }
     
         println!("Your guess: {}", guess);
-        println!("Random number: {}", random_number);
     }
 }
 
