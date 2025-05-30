@@ -16,7 +16,13 @@ fn main(){
         .expect("Something went wrong...");
     
         // convert string to int
-        let guess: u32 = guess.trim().parse().expect("Not a valid number");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("{}", "Enter a valid number". yellow());
+                continue;
+            }
+        };
         
         let lower: u32 = if guess < random_number {guess + 1} else {1};
         let upper: u32 = if guess > random_number {guess - 1} else {10}; 
