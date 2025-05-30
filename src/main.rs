@@ -1,9 +1,8 @@
 use std::io;
-use rand::Rng;
+use rand::{random, Rng};
 use colored::*;
 
 fn main(){
-
     // generating a random number
     let random_number = rand::thread_rng().gen_range(1..10);
     println!("Welcome to guessing game!");
@@ -17,14 +16,15 @@ fn main(){
     
         // convert string to int
         let guess: u32 = guess.trim().parse().expect("Not a valid number");
+        
+        let lower: u32 = if guess < random_number {guess + 1} else {1};
+        let upper: u32 = if guess > random_number {guess - 1} else {10}; 
 
         if guess == random_number {
             println!("{}", "Your guess is correct!!".green());
             break;
-        } else if  guess > random_number {
-            println!("{}", "Your guess is wrong and too high, guess again!!".red());
         } else {
-            println!("{}", "Your guess is wrong and too low, guess again!!".red());
+            println!("{}", format!("Wrong guess, Try guessing between {} and {}", lower, upper).yellow());
         }
     
         println!("Your guess: {}", guess);
