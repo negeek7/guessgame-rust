@@ -1,6 +1,7 @@
 use std::io;
-use rand::{random, Rng};
+use rand::Rng;
 use colored::*;
+use std::cmp::Ordering;
 
 fn main(){
     // generating a random number
@@ -17,15 +18,25 @@ fn main(){
         // convert string to int
         let guess: u32 = guess.trim().parse().expect("Not a valid number");
         
-        let lower: u32 = if guess < random_number {guess + 1} else {1};
-        let upper: u32 = if guess > random_number {guess - 1} else {10}; 
+        // let lower: u32 = if guess < random_number {guess + 1} else {1};
+        // let upper: u32 = if guess > random_number {guess - 1} else {10}; 
 
-        if guess == random_number {
-            println!("{}", "Your guess is correct!!".green());
-            break;
-        } else {
-            println!("{}", format!("Wrong guess, Try guessing between {} and {}", lower, upper).yellow());
+        match guess.cmp(&random_number) {
+            Ordering::Less => println!("Your guess is low"),
+            Ordering::Greater => println!("Your guess is high"),
+            Ordering::Equal => {
+                println!("{}", "Your guess is correct!!".green());
+                break;
+            },
+
         }
+
+        // if guess == random_number {
+        //     println!("{}", "Your guess is correct!!".green());
+        //     break;
+        // } else {
+        //     println!("{}", format!("Wrong guess, Try guessing between {} and {}", lower, upper).yellow());
+        // }
     
         println!("Your guess: {}", guess);
     }
