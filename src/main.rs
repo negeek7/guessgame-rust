@@ -18,12 +18,12 @@ fn main(){
         // convert string to int
         let guess: u32 = guess.trim().parse().expect("Not a valid number");
         
-        // let lower: u32 = if guess < random_number {guess + 1} else {1};
-        // let upper: u32 = if guess > random_number {guess - 1} else {10}; 
+        let lower: u32 = if guess < random_number {guess + 1} else {1};
+        let upper: u32 = if guess > random_number {guess - 1} else {10}; 
 
         match guess.cmp(&random_number) {
-            Ordering::Less => println!("Your guess is low"),
-            Ordering::Greater => println!("Your guess is high"),
+            Ordering::Less => println!("{}", format!("Your guess is low, try guessing between {} and {}", lower, upper).yellow()),
+            Ordering::Greater => println!("{}", format!("Your guess is high, try guessing between {} and {}", lower, upper).yellow()),
             Ordering::Equal => {
                 println!("{}", "Your guess is correct!!".green());
                 break;
